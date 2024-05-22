@@ -1,0 +1,27 @@
+name: book-list service
+on:
+  push:
+    paths:
+      - booklist-service/**
+    branches:
+      - '**'
+  jobs:
+    build:
+    name: Build
+    runs-on: ubuntu-latest
+    env:
+      working-directory: ./booklist-service
+    defaults:
+      working-directory: ${{ env.working-directory }}
+    steps:
+      - uses actions/checkout@v4
+
+      - name: Setup Java 21
+        uses: actions/checkout@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Build with maven
+        run: ./mvnw -ntp verify
