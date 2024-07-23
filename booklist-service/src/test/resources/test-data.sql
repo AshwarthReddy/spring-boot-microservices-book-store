@@ -1,4 +1,3 @@
-truncate table books;
 
 insert into books(code, name, description, image_url, price)
 values ('P100', 'The Hunger Games', 'Winning will make you famous. Losing means certain death...',
