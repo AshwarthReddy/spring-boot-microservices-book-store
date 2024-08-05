@@ -1,4 +1,4 @@
-package com.anr.orders;
+package com.anr.orders.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
