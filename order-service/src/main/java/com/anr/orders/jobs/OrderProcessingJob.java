@@ -3,6 +3,8 @@ package com.anr.orders.jobs;
 import com.anr.orders.domain.OrderService;
 import java.time.Instant;
 import lombok.extern.slf4j.Slf4j;
+import net.javacrumbs.shedlock.core.LockAssert;
+import net.javacrumbs.shedlock.spring.annotation.SchedulerLock;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -17,8 +19,10 @@ class OrderProcessingJob {
     }
 
     @Scheduled(cron = "${orders.new-orders-job-cron}")
+    @SchedulerLock(name = "processNewOrders")
     public void processNewOrders() {
         log.info("Processing new orders at {}", Instant.now());
+        LockAssert.assertLocked();
         orderService.processNewOrders();
     }
 }
