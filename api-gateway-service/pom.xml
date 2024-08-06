@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.anr.apigateway</groupId>
-    <artifactId>api-gateway-service-service</artifactId>
+    <artifactId>api-gateway-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>api-gateway-service</name>
     <description>api-gateway-service</description>
