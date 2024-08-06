@@ -18,6 +18,8 @@
     <modules>
         <module>booklist-service</module>
         <module>order-service</module>
+        <module>notification-service</module>
+        <module>api-gateway-service-service</module>
     </modules>
     <build>
         <plugins>

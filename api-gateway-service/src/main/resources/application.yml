@@ -1,0 +1,58 @@
+
+server:
+  port: 9090
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+spring:
+  application:
+    name: api-gateway-service
+
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowed-origins: "*"
+            allowed-methods: "*"
+            allowed-headers: "*"
+            allow-credentials: false
+      routes:
+        - id : books-service
+          uri: ${BOOKSTORE_SERVICE_URL:http://localhost:8081}
+          predicates:
+            - Path=/books/**
+          filters:
+            - RewritePath=/books/?(?<segment>.*), /${segment}
+        - id: orders-service
+          uri: ${ORDER_SERVICE_URL:http://localhost:8082}
+          predicates:
+            - Path=/orders/**
+          filters:
+            - RewritePath=/orders/?(?<segment>.*), /${segment}
+        - id: openapi
+          uri: http://localhost:${server.port}
+          predicates:
+            - Path=/v3/api-docs/**
+          filters:
+            - RewritePath=/v3/api-docs/?(?<segment>.*), /${segment}/v3/api-docs
+  mvc:
+    problemdetails:
+      enabled: true
+#springdoc:
+#  swagger-ui:
+#    use-root-path: true
+#    urls:
+#      - name: books
+#        url: /v3/api-docs/books
+#      - name: orders
+#        url: /v3/api-docs/orders
+
+
+
