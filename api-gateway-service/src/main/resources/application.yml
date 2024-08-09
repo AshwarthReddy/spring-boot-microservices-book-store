@@ -2,6 +2,27 @@
 server:
   port: 9090
 
+OAUTH2_SERVER_URL: http://localhost:9191
+REALM_URL: ${OAUTH2_SERVER_URL}/realms/book-store
+
+
+spring.security.oauth2:
+  resourceserver:
+    jwt:
+      jwk-set-uri: ${REALM_URL}/protocol/openid-connect/certs
+  client:
+    provider:
+      keycloak:
+        issuer-uri: ${REALM_URL}
+    registration:
+      book-store:
+        provider: keycloak
+        client-id: bookstore-apigateway
+        client-secret: FJWzwXw7Zki4b5RYhflbOzrnNmyF5uyx
+        authorization-grant-type: authorization_code
+        scope: openid
+        redirect-uri: '{baseUrl}/login/oauth2/code'
+
 management:
   endpoints:
     web:
@@ -29,7 +50,7 @@ spring:
           predicates:
             - Path=/books/**
           filters:
-            - RewritePath=/books/?(?<segment>.*), /${segment}
+            - RewritePath=books/?(?<segment>.*), /${segment}
         - id: orders-service
           uri: ${ORDER_SERVICE_URL:http://localhost:8082}
           predicates:
@@ -42,17 +63,22 @@ spring:
             - Path=/v3/api-docs/**
           filters:
             - RewritePath=/v3/api-docs/?(?<segment>.*), /${segment}/v3/api-docs
+      default-filters:
+        - TokenRelay=
   mvc:
     problemdetails:
       enabled: true
-#springdoc:
-#  swagger-ui:
-#    use-root-path: true
-#    urls:
-#      - name: books
-#        url: /v3/api-docs/books
-#      - name: orders
-#        url: /v3/api-docs/orders
+springdoc:
+  swagger-ui:
+    use-root-path: true
+    urls:
+      - name: books
+        url: /v3/api-docs/books
+      - name: orders
+        url: /v3/api-docs/orders
+logging:
+  level:
+    org.springframework.cloud.gateway.handler.RoutePredicateHandlerMapping: DEBUG
 
 
 

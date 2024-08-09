@@ -31,6 +31,7 @@ services:
       - RABBITMQ_PORT=5672
       - RABBITMQ_USERNAME=guest
       - RABBITMQ_PASSWORD=guest
+      - OAUTH2_SERVER_URL=http://keycloak:9191
     ports:
       - "8082:8082"
     restart: unless-stopped
@@ -76,6 +77,7 @@ services:
       - SPRING_PROFILES_ACTIVE=docker
       - BOOKSTORE_SERVICE_URL=http://booklist-service:8081
       - ORDER_SERVICE_URL=http://order-service:8082
+      - OAUTH2_SERVER_URL=http://keycloak:9191
     ports:
       - "9090:9090"
     restart: unless-stopped
