@@ -2,27 +2,6 @@
 server:
   port: 9090
 
-OAUTH2_SERVER_URL: http://localhost:9191
-REALM_URL: ${OAUTH2_SERVER_URL}/realms/book-store
-
-
-spring.security.oauth2:
-  resourceserver:
-    jwt:
-      jwk-set-uri: ${REALM_URL}/protocol/openid-connect/certs
-  client:
-    provider:
-      keycloak:
-        issuer-uri: ${REALM_URL}
-    registration:
-      book-store:
-        provider: keycloak
-        client-id: bookstore-apigateway
-        client-secret: FJWzwXw7Zki4b5RYhflbOzrnNmyF5uyx
-        authorization-grant-type: authorization_code
-        scope: openid
-        redirect-uri: '{baseUrl}/login/oauth2/code'
-
 management:
   endpoints:
     web:
@@ -63,8 +42,8 @@ spring:
             - Path=/v3/api-docs/**
           filters:
             - RewritePath=/v3/api-docs/?(?<segment>.*), /${segment}/v3/api-docs
-      default-filters:
-        - TokenRelay=
+#      default-filters:
+#        - TokenRelay=
   mvc:
     problemdetails:
       enabled: true

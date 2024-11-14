@@ -77,10 +77,12 @@ services:
       - SPRING_PROFILES_ACTIVE=docker
       - BOOKSTORE_SERVICE_URL=http://booklist-service:8081
       - ORDER_SERVICE_URL=http://order-service:8082
-      - OAUTH2_SERVER_URL=http://keycloak:9191
     ports:
-      - "9090:9090"
+      - "8080:8080"
     restart: unless-stopped
+    depends_on:
+      order-service:
+        condition: service_healthy
     deploy:
       resources:
         limits:
