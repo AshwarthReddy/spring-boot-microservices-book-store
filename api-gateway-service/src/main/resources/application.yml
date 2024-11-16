@@ -1,6 +1,6 @@
 
 server:
-  port: 9090
+  port: 8080
 
 management:
   endpoints:
@@ -29,7 +29,7 @@ spring:
           predicates:
             - Path=/books/**
           filters:
-            - RewritePath=/books/?(?<segment>.*), /${segment}
+            - RewritePath=books/?(?<segment>.*), /${segment}
         - id: orders-service
           uri: ${ORDER_SERVICE_URL:http://localhost:8082}
           predicates:
@@ -42,17 +42,22 @@ spring:
             - Path=/v3/api-docs/**
           filters:
             - RewritePath=/v3/api-docs/?(?<segment>.*), /${segment}/v3/api-docs
+#      default-filters:
+#        - TokenRelay=
   mvc:
     problemdetails:
       enabled: true
-#springdoc:
-#  swagger-ui:
-#    use-root-path: true
-#    urls:
-#      - name: books
-#        url: /v3/api-docs/books
-#      - name: orders
-#        url: /v3/api-docs/orders
+springdoc:
+  swagger-ui:
+    use-root-path: true
+    urls:
+      - name: books
+        url: /v3/api-docs/books
+      - name: orders
+        url: /v3/api-docs/orders
+logging:
+  level:
+    org.springframework.cloud.gateway.handler.RoutePredicateHandlerMapping: DEBUG
 
 
 
