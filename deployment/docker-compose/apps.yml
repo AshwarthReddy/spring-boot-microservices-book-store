@@ -44,15 +44,10 @@ services:
         condition: service_healthy
       bookstore-rabbitmq:
         condition: service_healthy
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8082/actuator/health" ]
-      interval: 5s
-      timeout: 3s
-      retries: 100
-    deploy:
-      resources:
-        limits:
-          memory: 1024m
+#    deploy:
+#      resources:
+#        limits:
+#          memory: 1024m
   booklist-service:
     image: ashwarth/bookstore-booklist-service
     container_name: booklist-service
