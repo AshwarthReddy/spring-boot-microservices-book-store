@@ -26,6 +26,8 @@ services:
       resources:
         limits:
           memory: 1024m
+    labels:
+      logging: 'promtail'
   api-gateway-service:
     image: ashwarth/bookstore-api-gateway-service
     container_name: api-gateway-service
@@ -39,6 +41,8 @@ services:
     depends_on:
       order-service:
         condition: service_healthy
+    labels:
+      logging: 'promtail'
 #    healthcheck:
 #      test: [ "CMD", "curl", "-f", "http://localhost:8080/actuator/health" ]
 #      interval: 5s
@@ -66,6 +70,8 @@ services:
       resources:
         limits:
           memory: 700m
+    labels:
+      logging: 'promtail'
   notification-service:
     image: ashwarth/bookstore-notification-service
     container_name: notification-service
@@ -92,3 +98,5 @@ services:
       resources:
         limits:
           memory: 700m
+    labels:
+      logging: 'promtail'
