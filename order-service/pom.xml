@@ -206,11 +206,13 @@
 					<failOnNoGitDirectory>false</failOnNoGitDirectory>
 					<failOnUnableToExtractRepoInfo>false</failOnUnableToExtractRepoInfo>
 					<generateGitPropertiesFile>true</generateGitPropertiesFile>
+					<commitIdGenerationMode>full</commitIdGenerationMode>
 					<includeOnlyProperties>
 						<includeOnlyProperty>^git.branch$</includeOnlyProperty>
-						<includeOnlyProperty>^git.commit.id.abbrev$</includeOnlyProperty>
+<!--						<includeOnlyProperty>^git.commit.id.abbrev$</includeOnlyProperty>-->
 						<includeOnlyProperty>^git.commit.user.name$</includeOnlyProperty>
 						<includeOnlyProperty>^git.commit.message.full$</includeOnlyProperty>
+						<includeOnlyProperty>^git.commit.id.(abbrev|full)$</includeOnlyProperty>
 					</includeOnlyProperties>
 				</configuration>
 			</plugin>

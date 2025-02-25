@@ -7,7 +7,6 @@ import com.anr.orders.domain.models.CreateOrderRequest;
 import com.anr.orders.domain.models.CreateOrderResponse;
 import com.anr.orders.domain.models.OrderDTO;
 import com.anr.orders.domain.models.OrderSummary;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/orders")
 @Slf4j
-@SecurityRequirement(name = "security_auth")
 class OrderController {
 
     private final OrderService orderService;
