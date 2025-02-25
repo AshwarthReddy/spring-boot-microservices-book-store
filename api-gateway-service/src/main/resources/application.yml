@@ -6,7 +6,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: *
+        include: "*"
 spring:
   application:
     name: api-gateway-service

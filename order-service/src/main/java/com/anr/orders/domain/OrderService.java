@@ -8,6 +8,7 @@ import com.anr.orders.domain.models.OrderStatus;
 import com.anr.orders.domain.models.OrderSummary;
 import java.util.List;
 import java.util.Optional;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,18 +16,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Slf4j
 @Transactional
+@RequiredArgsConstructor
 public class OrderService {
     private static final List<String> DELIVERY_ALLOWED_COUNTRIES = List.of("INDIA", "USA", "GERMANY", "UK");
 
     private final OrderRepository orderRepository;
     private final OrderValidator orderValidator;
     private final OrderEventService orderEventService;
-
-    OrderService(OrderRepository orderRepository, OrderValidator orderValidator, OrderEventService orderEventService) {
-        this.orderRepository = orderRepository;
-        this.orderValidator = orderValidator;
-        this.orderEventService = orderEventService;
-    }
 
     public CreateOrderResponse createOrder(String userName, CreateOrderRequest request) {
         orderValidator.validate(request);

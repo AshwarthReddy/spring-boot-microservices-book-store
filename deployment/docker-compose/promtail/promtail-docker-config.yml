@@ -19,4 +19,4 @@ scrape_configs:
     relabel_configs:
       - source_labels: ['__meta_docker_container_name']
         regex: '/(.*)'
-        target_label: 'container'
+        target_label: 'container_name'
