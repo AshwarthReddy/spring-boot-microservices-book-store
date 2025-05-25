@@ -1,77 +1,51 @@
-# spring-boot-microservices
-
-## How to run?
-
-### Build all modules:
-
-`spring-boot-microservices-series> ./mvnw clean package -DskipTests=true`
-
-### Start infrastructure modules in docker:
-
-**The simplest way to run all the services in Docker:**
-
-`spring-boot-microservices-series> ./run.sh start_all`
-
-**To start only infrastructure services (mysqldb, rabbitmq, config-server, service-registry, hystrix-dashboard) in docker:**
-
-`spring-boot-microservices-series> ./run.sh start_infra`
-
-**Start each microservice either in local or in docker:**
-
-**Local:** `spring-boot-microservices-series/catalog-service> ./mvnw spring-boot:run`
-
-**Docker:** `spring-boot-microservices-series> ./run.sh start <service>`
-
-Ex: `spring-boot-microservices-series> ./run.sh start catalog-service`
+# Spring Boot Microservices Course
+This repository contains the source code for the 
 
 
-* MySQL container:
-     * hostname: mysqldb
-     * Ports : 3306:3306 (<host_port>:<container_port>)
-     * Username/Password: root/admin
+We will build a BookStore application using Spring Boot, Spring Cloud, and Docker.
 
-* RabbitMQ:
-     * hostname: rabbitmq
-     * Ports: 5672:5672, 15672:15672
-     * Admin UI: http://localhost:15672
-     * Username/password: guest/guest
+![BookStore Microservices Architecture](docs/bookstore-spring-microservices.png)
 
-* Vault:
-    * hostname: vault
-    * Ports: 8200:8200
-    * Root token: 934f9eae-31ff-a8ef-e1ca-4bea9e07aa09
+## Modules
+* **bookstore-service**: 
+  This services provides REST API for managing catalog of products(books).
+  
+  **TechStack:** Spring Boot, Spring Data JPA, PostgreSQL
 
-* config-server:
-    * hostname: config-server
-    * Ports: 8888:8888
-    * URL: http://localhost:8888/
+* **order-service**: 
+  This service provides the REST API for managing orders and publishes order events to the message broker.
 
-* service-registry:
-    * hostname: service-registry
-    * Ports: 8761:8761
-    * URL: http://localhost:8761/
-    
-* hystrix-dashboard:
-    * hostname: hystrix-dashboard
-    * Ports: 8788:8788
-    * URL: http://localhost:8788/hystrix
+  **TechStack:** Spring Boot, Spring Security OAuth2, Keycloak, Spring Data JPA, PostgreSQL, RabbitMQ
 
-* catalog-service:
-    * hostname: catalog-service
-    * Ports: 18181:8181
-    * URL: http://localhost:18181
-    
-* inventory-service   
-    * hostname: inventory-service
-    * Ports: 18282:8282
-    * URL: http://localhost:18282
-    
-* order-service  
-    * hostname: order-service
-    * Ports: 18383:8383
-    * URL: http://localhost:18383 
-    
-* shoppingcart-ui    
-    * hostname: shoppingcart-ui
-    * Ports: 18080:8080
-    * URL: http://localhost:18080
+* **notification-service**: 
+  This service listens to the order events and sends notifications to the users.
+  
+  **TechStack:** Spring Boot, RabbitMQ
+
+* **api-gateway**: 
+  This service is an API Gateway to the internal backend services (catalog-service, order-service).
+
+  **TechStack:** Spring Boot, Spring Cloud Gateway
+
+  **TechStack:** Spring Boot, Spring Security OAuth2, Keycloak, Thymeleaf, Alpine.js, Bootstrap
+
+## Learning Objectives
+* Building Spring Boot REST APIs
+* Database Persistence using Spring Data JPA, Postgres, Flyway
+* Event Driven Async Communication using RabbitMQ
+* Implementing OAuth2-based Security using Spring Security and Keycloak
+* Implementing API Gateway using Spring Cloud Gateway
+* Implementing Resiliency using Resilience4j
+* Job Scheduling with ShedLock-based distributed Locking
+* Using RestClient, Declarative HTTP Interfaces to invoke other APIs
+* Creating Aggregated Swagger Documentation at API Gateway
+* Local Development Setup using Docker, Docker Compose and Testcontainers
+* Testing using JUnit 5, RestAssured, Testcontainers, Awaitility, WireMock
+* Building Web Application using Thymeleaf, Alpine.js, Bootstrap
+* Monitoring & Observability using Grafana, Prometheus, Loki, Tempo
+
+## Local Development Setup
+* Install Java 21. Recommend using [SDKMAN](https://sdkman.io/) for [managing Java versions](https://youtu.be/ZywEiw3EO8A).
+* Install [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+* Install [IntelliJ IDEA](https://www.jetbrains.com/idea) or any of your favorite IDE
+* Install [Postman](https://www.postman.com/) or any REST Client
